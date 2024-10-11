@@ -7,24 +7,37 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  copy-files:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - name: Checkout your own repository
+        uses: actions/checkout@v2
+        with:
+          repository: mateyz/GHA_Testing
+          path: GHA_Testing
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Checkout the Breach repository
+        uses: actions/checkout@v2
+        with:
+          repository: mateyz/Breach
+          path: Breach
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Copy src folder from Breach to your-repo
+        run: cp -r Breach/src GHA_Testing/src
+
+      - name: Commit and push changes to your-repo
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          cd your-repo
+          git config user.name "your-username"
+          git config user.email "your-email@example.com"
+          git add .
+          git commit -m "Copy src folder from Breach"
+          git push origin main
+
+      - name: Upload copied src folder as an artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: copied-src
+          path: GHA_Testing/src
