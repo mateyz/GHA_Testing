@@ -2,6 +2,9 @@
 
 name: Update dashboard
 
+permissions:
+  contents: read
+  
 # Controls when the workflow will run
 on:
   # Allows you to run this workflow manually from the Actions tab
@@ -21,8 +24,8 @@ jobs:
       - name: Checkout the Breach repository
         uses: actions/checkout@v2
         with:
-          repository: mateyz/Breach
-          path: Breach
+          repository: mateyz/Default-TS-project
+          path: Default-TS-project 
 
       - name: Copy src folder from Breach to your-repo
         run: cp -r Breach/src GHA_Testing/src
