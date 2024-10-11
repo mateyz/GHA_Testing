@@ -28,7 +28,7 @@ jobs:
           path: Default-TS-project 
 
       - name: Copy src folder from Breach to your-repo
-        run: cp -r Breach/src GHA_Testing/src
+        run: cp -r Default-TS-project/src GHA_Testing/src
 
       - name: Commit and push changes to your-repo
         run: |
@@ -36,7 +36,7 @@ jobs:
           git config user.name "your-username"
           git config user.email "your-email@example.com"
           git add .
-          git commit -m "Copy src folder from Breach"
+          git commit -m "Copy src folder from Default-TS-project"
           git push origin main
 
       - name: Upload copied src folder as an artifact
