@@ -9,24 +9,10 @@ permissions:
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  repository_dispatch:
+    types: [update-testing]
 
 jobs:
-  await-update:
-    runs-on: ubuntu-latest
-  
-    steps:
-      - uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.PERSONAL_TOKEN }}
-          script: |
-            await github.rest.actions.createWorkflowDispatch({
-             owner: mateyz
-             repo: 'mateyz/Default_TS_Project',
-             workflow_id: 'blank.yml',
-             ref: 'main'
-            })
-      
-
   copy-files:
     runs-on: ubuntu-latest
 
